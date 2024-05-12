@@ -2,10 +2,10 @@
   "name": "n695---desenvolvimento-para-plataformas-web",
   "version": "1.0.0",
   "description": "Este projeto terá como finalidade a resolução proposta pela atividade final da cadeira Desenvolvimento Para Plataformas Web na Universidade de Fortaleza do curso de Análise e Desenvolvimento de Sistemas.",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",

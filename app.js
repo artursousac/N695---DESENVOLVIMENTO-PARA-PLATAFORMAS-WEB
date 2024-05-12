@@ -1,16 +1,30 @@
-const express = require("express")
-const cors = require("cors")
+import express from "express";
+import mongoose from "mongoose";
+//import User from './models'
 
-require("dotenv").config()
+const app = express();
 
-var app = express();
+app.use(express.json());
 
-app.use(cors())
+//import connection from './database/connection.js'
 
-const port = process.env.PORT || 3000;
+const users = [];
 
-app.listen(port, () => {
-    console.log(`Servidor rodando na porta: ${port}`)
-})
+app.get("/users", (request, response) => {
+    return response.json(users);
+});
 
-require("./database/connection")
+app.post("/users", (request, response) => {
+    const { nome, email, senha, perfil } = request.body;
+
+    users.push({ nome, email, senha, perfil });
+
+    return response.json({ nome, email, senha, perfil });
+});
+
+mongoose.connect(
+    `mongodb+srv://artursousac:ZWw9iafqnMBeHOG4@cluster0.brp8cuh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`).then(
+        () => console.log("Banco de Dados conectado"))
+        .catch(() => console.log("Falha na conexão"))
+        
+app.listen(3000);

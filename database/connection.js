@@ -1,7 +1,4 @@
-const mongoose = require("mongoose")
-
-const dbUser = process.env.DB_USER
-const dbPassword = process.env.DB_PASSWORD
+import mongoose from "mongoose"
 
 const connect = () => {
     mongoose.connect(`mongodb+srv://artursousac:ZWw9iafqnMBeHOG4@cluster0.brp8cuh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
@@ -20,4 +17,6 @@ const connect = () => {
 connect();
 
 module.exports = mongoose;
+
+export default connect
 

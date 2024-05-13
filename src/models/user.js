@@ -3,23 +3,19 @@ import mongoose from "mongoose"
 const userSchema = new mongoose.Schema({
     nome: {
         type: String,
-        required: true,
+        required: true
     },
     email: {
         type: String,
-        required: true,
+        required: true
     },
     senha: {
         type: String,
-        required: true,
-    },
-    perfil: {
-        type: String,
-        required: true,
+        required: true
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
+        default: Date.now()
     },
     modifiedAt: {
         type: Date,

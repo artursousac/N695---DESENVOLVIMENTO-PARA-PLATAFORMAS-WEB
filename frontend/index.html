@@ -15,7 +15,7 @@
 
     <main class="w-100 m-auto form-container">
 
-        <form class="needs-validation" novalidate>
+        <form id="formLogin" class="needs-validation" novalidate>
             <img src="https://ead.unifor.br/ava/login/page/img/icon-unifor.svg" class="mb-4" height="55" width="70">
             <h3 class="mb-3 fw-normal">Please sign in</h3>
             <div class="form-floating mb-2">
@@ -33,10 +33,10 @@
                 </div>
             </div>
             <div class="form-check my-3">
-                <input type="checkbox" class="form-check-input" id="flexCheckDefault" />
+                <input type="checkbox" class="form-check-input" id="flexCheckDefault" readonly/>
                 <label class="form-check-label" for="flexCheckDefault">Remember me</label>
             </div>
-                <button type="button" class="btn btn-primary w-100 py-2"  onclick="Logar()">Sign in</button>
+                <button class="btn btn-primary w-100 py-2" type="submit" onclick="Logar()">Sign in</button>
         </form>
         
     </main>
@@ -51,6 +51,12 @@
             var element = document.body;
             element.dataset.bsTheme = element.dataset.bsTheme == "light" ? "dark" : "light"
         }
+    </script>
+
+    <script>
+        formLogin.addEventListener('submit', (e) => {
+            e.preventDefault()
+        })
     </script>
 
     <script>

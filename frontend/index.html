@@ -15,18 +15,18 @@
 
     <main class="w-100 m-auto form-container">
 
-        <form id="formLogin" class="needs-validation" novalidate>
+        <form id="formLogin" >
             <img src="https://ead.unifor.br/ava/login/page/img/icon-unifor.svg" class="mb-4" height="55" width="70">
             <h3 class="mb-3 fw-normal">Please sign in</h3>
             <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com" required/>
+                <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com" required onclick="esconderDiv('divAlertaLogin')"/>
                 <label for="floatingInputEmail">Email Address</label>
                 <div class="invalid-feedback">
                     Digite seu e-mail corretamente
                 </div>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required/>
+                <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required onclick="esconderDiv('divAlertaLogin')"/>
                 <label for="floatingInputSenha">Password</label>
                 <div class="invalid-feedback">
                     Digite sua senha
@@ -37,14 +37,35 @@
                 <label class="form-check-label" for="flexCheckDefault">Remember me</label>
             </div>
                 <button class="btn btn-primary w-100 py-2" type="submit" onclick="Logar()">Sign in</button>
-        </form>
+
+                <div id="divAlertaLogin" class="alert alert-danger align-items-center my-3" role="alert" style="display:none">
+                      Email ou senha incorretos
+                </div>
+        </form>   
         
     </main>
+
 
     <div class="form-check form-switch position-absolute bottom-0 end-0 mb-2">
         <input class="form-check-input p-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked
             onclick="setDatasetTheme()">
     </div>
+
+    <script>
+
+function mudarEstadoDiv(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == 'none')
+            document.getElementById(el).style.display = 'block';
+    }
+
+    function esconderDiv(el) {
+        var display = document.getElementById(el).style.display;
+        if(display == 'block')
+            document.getElementById(el).style.display = 'none';
+    }
+    </script>
+    
 
     <script>
         function setDatasetTheme() {
@@ -59,23 +80,24 @@
         })
     </script>
 
-    <script>
-        async function Logar(){
+<script>
+    async function Logar() {
+        try {
+            let email = document.getElementById('floatingInputEmail').value;
+            let senha = document.getElementById('floatingInputSenha').value;
 
-        let email = document.getElementById('floatingInputEmail').value
-        let senha = document.getElementById('floatingInputSenha').value
-        
+            const response = await axios.post('http://localhost:3000/auth/login', { email, senha });
 
-        const response = await axios.post('http://localhost:3000/auth/login', {email, senha})
-
-        console.log(response.data.message)
-        if(response.data.message == 'Usuário conectado' ){
-            window.location.replace('telaInicial.html')
+            if (response.data.message === 'Usuário conectado') {
+                window.location.replace('telaInicial.html');
+            }
+        } catch (error) {
+            console.error(error.response.data);
+            mudarEstadoDiv('divAlertaLogin')
+            document.getElementById('floatingInputSenha').value = ""
         }
-
-        }
-
-    </script>
+    }
+</script>
 
     <script>
         (() => {

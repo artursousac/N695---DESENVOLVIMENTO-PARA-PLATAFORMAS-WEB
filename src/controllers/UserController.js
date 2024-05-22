@@ -17,14 +17,25 @@ async function getUsers(request, response){
     }
 }
 
-async function getUser(request, response){
-    const getUser = await User.findById(request.params.id, "-senha")
+async function getUserbyID(request, response){
+    const getUserbyID = await User.findById(request.params.id)
 
-    if(!getUser){
+    if(!getUserbyID){
         return response.status(404).json({message: "Usuário não encontrado"})
     }
 
-    response.status(200).json({getUser})
+    response.status(200).json({getUserbyID})
+}
+
+async function getUserbyEmail(request, response){
+    const { email } = request.body
+    const getUserbyEmail = await User.findOne({email: email})
+
+    if(!getUserbyEmail){
+        return response.status(404).json({message: "Usuário não encontrado"})
+    }
+
+    response.status(200).json({id: getUserbyEmail.id})
 }
 
 async function createUser(request, response){
@@ -94,7 +105,7 @@ async function loginUser(request, response){
         return response.status(422).json({message: "Senha inválida"})
     }
 
-    return response.status(200).json({message: "Usuário conectado"})
+    return response.status(200).json(user)
 }
 
 async function deleteUser(request, response){
@@ -119,4 +130,4 @@ async function updateUser(request, response){
     }
 }
 
-export { publicRoute, getUsers, createUser, deleteUser, updateUser, getUser, loginUser }
+export { publicRoute, getUsers, createUser, deleteUser, updateUser, getUserbyID, getUserbyEmail, loginUser }

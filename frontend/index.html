@@ -19,30 +19,33 @@
             <img src="https://ead.unifor.br/ava/login/page/img/icon-unifor.svg" class="mb-4" height="55" width="70">
             <h3 class="mb-3 fw-normal">Please sign in</h3>
             <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com" required onclick="esconderDiv('divAlertaLogin')"/>
+                <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com"
+                    required onclick="esconderDiv('divAlertaLogin')" />
                 <label for="floatingInputEmail">Email Address</label>
                 <div class="invalid-feedback">
                     Digite seu e-mail corretamente
                 </div>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required onclick="esconderDiv('divAlertaLogin')"/>
+                <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required
+                    onclick="esconderDiv('divAlertaLogin')" />
                 <label for="floatingInputSenha">Password</label>
                 <div class="invalid-feedback">
                     Digite sua senha
                 </div>
             </div>
             <div class="form-check my-3">
-                <input type="checkbox" class="form-check-input" id="flexCheckDefault" readonly/>
+                <input type="checkbox" class="form-check-input" id="flexCheckDefault" readonly />
                 <label class="form-check-label" for="flexCheckDefault">Remember me</label>
             </div>
-                <button class="btn btn-primary w-100 py-2" type="submit" onclick="Logar()">Sign in</button>
+            <button class="btn btn-primary w-100 py-2" type="submit" onclick="Logar()">Sign in</button>
 
-                <div id="divAlertaLogin" class="alert alert-danger align-items-center my-3" role="alert" style="display:none">
-                      Email ou senha incorretos
-                </div>
-        </form>   
-        
+            <div id="divAlertaLogin" class="alert alert-danger align-items-center my-3" role="alert"
+                style="display:none">
+                Email ou senha incorretos
+            </div>
+        </form>
+
     </main>
 
 
@@ -53,19 +56,19 @@
 
     <script>
 
-function mudarEstadoDiv(el) {
-        var display = document.getElementById(el).style.display;
-        if(display == 'none')
-            document.getElementById(el).style.display = 'block';
-    }
+        function mudarEstadoDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'none')
+                document.getElementById(el).style.display = 'block';
+        }
 
-    function esconderDiv(el) {
-        var display = document.getElementById(el).style.display;
-        if(display == 'block')
-            document.getElementById(el).style.display = 'none';
-    }
+        function esconderDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'block')
+                document.getElementById(el).style.display = 'none';
+        }
     </script>
-    
+
 
     <script>
         function setDatasetTheme() {
@@ -80,42 +83,45 @@ function mudarEstadoDiv(el) {
         })
     </script>
 
-<script>
-    async function Logar() {
-        try {
-            let email = document.getElementById('floatingInputEmail').value;
-            let senha = document.getElementById('floatingInputSenha').value;
+    <script>
+        async function Logar() {
+            try {
+                let email = document.getElementById('floatingInputEmail').value;
+                let senha = document.getElementById('floatingInputSenha').value;
 
-            const response = await axios.post('http://localhost:3000/auth/login', { email, senha });
+                const response = await axios.post('http://localhost:3000/auth/login', { email, senha });
 
-            if (response.data.message === 'Usuário conectado') {
-                window.location.replace('telaInicial.html');
+                if (response.data) {
+
+                    sessionStorage.setItem('dadosUsuarioLogado', JSON.stringify(response.data));
+
+                    window.location.replace('telaInicial.html');
+                }
+            } catch (error) {
+                console.error(error.response.data);
+                mudarEstadoDiv('divAlertaLogin')
+                document.getElementById('floatingInputSenha').value = ""
             }
-        } catch (error) {
-            console.error(error.response.data);
-            mudarEstadoDiv('divAlertaLogin')
-            document.getElementById('floatingInputSenha').value = ""
         }
-    }
-</script>
+    </script>
 
     <script>
         (() => {
-  'use strict'
+            'use strict'
 
-  const forms = document.querySelectorAll('.needs-validation')
+            const forms = document.querySelectorAll('.needs-validation')
 
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
 
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 
 </body>

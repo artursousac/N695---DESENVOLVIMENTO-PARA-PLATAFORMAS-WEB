@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { publicRoute, getUsers, createUser, deleteUser, updateUser, getUser, loginUser } from './controllers/UserController.js'
+import { publicRoute, getUsers, createUser, deleteUser, updateUser, getUserbyID, getUserbyEmail, loginUser } from './controllers/UserController.js'
 
 const routes = Router()
 
@@ -7,7 +7,9 @@ routes.get('/', publicRoute)
 
 routes.get('/user', getUsers)
 
-routes.get('/user/:id', getUser)
+routes.get('/user/:id', getUserbyID)
+
+routes.post('/user/email', getUserbyEmail)
 
 routes.post('/auth/register', createUser)
 

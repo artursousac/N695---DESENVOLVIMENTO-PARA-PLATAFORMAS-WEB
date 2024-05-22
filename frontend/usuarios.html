@@ -8,10 +8,11 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <title>Tela Inicial</title>
+    <title>Usuários</title>
 </head>
 
 <body class="bg-body-secondary">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <div class="d-flex flex-row">
 
@@ -55,39 +56,6 @@
             <span id="nomeUsuarioLogado" class="mx-auto">Usuário Logado</span>
         </div>
         
-
-        <div class="row row-cols text-center text-bg-light espacamento rounded-3 shadow">
-            <h1 class="my-5">Bem-vindo a aplicação de gestão de usuários.</h1>
-            <div class="col mx-4 align">
-              <div class="card rounded-3 shadow border-primary">
-                <div class="card-header py-3 text-bg-primary">
-                  <h4 class="my-0 fw-normal">Gerenciar Usuários</h4>
-                </div>
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>Editar Usuário</li>
-                    <li>Excluir Usuário</li>
-                    <li>Visualizar Usuário</li>
-                  </ul>
-                  <button type="button" class="btn btn-lg btn-primary text-bg-primary" onclick="window.location.replace('usuarios.html')">Gerenciar</button>
-                </div>
-              </div>
-            </div>
-            <div class="col mx-4">
-                <div class="card rounded-3 shadow border-primary">
-                  <div class="card-header py-3 text-bg-primary">
-                    <h4 class="my-0 fw-normal">Cadastrar Novos Usuários</h4>
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>Cadastro de Novo Usuário</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-primary text-bg-primary" onclick="window.location.replace('cadastrar.html')">Cadastrar</button>
-                  </div>
-                </div>
-              </div>
-          </div>
-        <!-- <a class="btn btn-primary" style="height: 100px;" href="index.html">Voltar</a> -->
     </div>
 
     <script>

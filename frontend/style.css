@@ -6,3 +6,27 @@ html, body{
     max-width: 350px;
     padding: 1rem;
 }
+
+.espacamento{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.form-cadastro-container{
+    min-width: 350px;
+    max-width: 350px;
+    align-items: center;
+    align-content: center;
+    padding: 1rem;
+    
+}
+
+.div-flex { 
+    display: flex; align-items: center; justify-content: center;
+}
+
+.div-grid { 
+    display: grid; place-items: center;
+}

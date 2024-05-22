@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Cadastrar</title>
+</head>
+
+<body class="bg-body-secondary">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <div class="d-flex flex-row">
+
+
+        <div class="d-flex flex-column p-3 text-bg-light rounded-3 shadow" style="min-width: 200px; height: 100vh;">
+            <span class="mx-auto">Gestão de Usuários</span>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item mb-3">
+                    <a href="telaInicial.html" class="nav-link active" aria-current="page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="20" fill="currentColor"
+                            class="bi bi-people" viewBox="0 1 20 16">
+                            <path
+                                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                        </svg>
+                        Tela Inicial
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="usuarios.html" class="nav-link active" aria-current="page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="20" fill="currentColor"
+                            class="bi bi-people" viewBox="0 1 16 16">
+                            <path
+                                d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                        </svg>
+                        Usuários
+                    </a>
+                <li class="nav-item mb-3">
+                    <a href="cadastrar.html" class="nav-link active" aria-current="page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="20" fill="currentColor"
+                            class="bi bi-plus-lg" viewBox="0 1 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                        </svg>
+                        Cadastrar
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <img src="pictures/usuarioPadrao.png" alt="" width="40" height="40" class="rounded-circle mx-auto">
+            <span id="nomeUsuarioLogado" class="mx-auto">Usuário Logado</span>
+        </div>
+
+        <div class="text-center text-bg-light espacamento rounded-3 shadow espacamentoBottom justify-content-center align-items-center"
+            style="width: 100vw;">
+            <h1 class="my-5">Cadastro de Usuário</h1>
+            <form id="formCadastro" class="mx-auto form-cadastro-container">
+                <div class="form-group mt-1">
+                    <label for="formGroupExampleInput">Nome</label>
+                    <input type="text" class="form-control" id="cadastroNome" placeholder="" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Email</label>
+                    <input type="text" class="form-control" id="cadastroEmail" placeholder="" required
+                    onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Senha</label>
+                    <input type="text" class="form-control" id="cadastroSenha" placeholder="" required
+                    onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Confirmação de Senha</label>
+                    <input type="text" class="form-control" id="cadastroConfirmacaoSenha" placeholder=""
+                        onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <button class="btn btn-primary py-2 my-4" type="submit" onclick="Cadastrar()">Cadastrar</button>
+                <div id="divAlertaSenhasIguais" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    As senhas não são iguais!!!
+                </div>
+                <div id="divAlertaEmailExistente" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    Este e-mail já existe!!!
+                </div>
+                <div id="divAlertaError" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    Erro na criação do usuário. Tente novamente!!!
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        formCadastro.addEventListener('submit', (e) => {
+            e.preventDefault()
+        })
+    </script>
+
+    <script>
+
+        const spanNomeUsuario = document.getElementById("nome-usuario");
+
+        spanNomeUsuario.textContent = nomeUsuario;
+    </script>
+
+    <script>
+
+        function mudarEstadoDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'none')
+                document.getElementById(el).style.display = 'block';
+        }
+
+        function esconderDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'block')
+                document.getElementById(el).style.display = 'none';
+        }
+    </script>
+
+    <script>
+        async function Cadastrar() {
+
+            try {
+                let nome = document.getElementById('cadastroNome').value;
+                let email = document.getElementById('cadastroEmail').value;
+                let senha = document.getElementById('cadastroSenha').value;
+                let confirmacaoSenha = document.getElementById('cadastroConfirmacaoSenha').value;
+
+                const response = await axios.post('http://localhost:3000/auth/register', { nome, email, senha, confirmacaoSenha });
+
+                if (response.data.message == "Usuário criado com sucesso") {
+                    window.location.replace('telaInicial.html');
+                }
+            } catch (error) {
+                console.error(error.response.data);
+                if (error.response.data.message == "Este e-mail já foi cadastrado") {
+                    mudarEstadoDiv('divAlertaEmailExistente')
+                } else if (error.response.data.message == "As senhas não são iguais") {
+                    mudarEstadoDiv('divAlertaSenhasIguais')
+                } else {
+                    mudarEstadoDiv('divAlertaError')
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

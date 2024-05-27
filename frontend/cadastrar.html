@@ -68,21 +68,21 @@
             <form id="formCadastro" class="mx-auto form-cadastro-container">
                 <div class="form-group mt-1">
                     <label for="formGroupExampleInput">Nome</label>
-                    <input type="text" class="form-control" id="cadastroNome" placeholder="" required>
+                    <input type="text" class="form-control shadow" id="cadastroNome" placeholder="" required>
                 </div>
                 <div class="form-group mt-3">
                     <label for="formGroupExampleInput2">Email</label>
-                    <input type="text" class="form-control" id="cadastroEmail" placeholder="" required
+                    <input type="text" class="form-control shadow" id="cadastroEmail" placeholder="" required
                     onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
                 </div>
                 <div class="form-group mt-3">
                     <label for="formGroupExampleInput2">Senha</label>
-                    <input type="text" class="form-control" id="cadastroSenha" placeholder="" required
+                    <input type="text" class="form-control shadow" id="cadastroSenha" placeholder="" required
                     onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
                 </div>
                 <div class="form-group mt-3">
                     <label for="formGroupExampleInput2">Confirmação de Senha</label>
-                    <input type="text" class="form-control" id="cadastroConfirmacaoSenha" placeholder=""
+                    <input type="text" class="form-control shadow" id="cadastroConfirmacaoSenha" placeholder=""
                         onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
                 </div>
                 <button class="btn btn-primary py-2 my-4" type="submit" onclick="Cadastrar()">Cadastrar</button>
@@ -107,13 +107,6 @@
         formCadastro.addEventListener('submit', (e) => {
             e.preventDefault()
         })
-    </script>
-
-    <script>
-
-        const spanNomeUsuario = document.getElementById("nome-usuario");
-
-        spanNomeUsuario.textContent = nomeUsuario;
     </script>
 
     <script>

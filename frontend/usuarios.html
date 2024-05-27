@@ -11,7 +11,7 @@
     <title>Usuários</title>
 </head>
 
-<body class="bg-body-secondary">
+<body class="bg-body-secondary" style="height: 100%; overflow: hidden;">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <div class="d-flex flex-row">
@@ -61,19 +61,64 @@
               <img src="pictures/usuarioPadrao.png" alt="" width="40" height="40" class="rounded-circle mx-auto">
               <span id="nomeUsuarioLogado" class="mx-auto"></span>
         </div>
+
+        <div class="text-center text-bg-light espacamento rounded-3 shadow espacamentoBottom justify-content-center table-responsive w-100 p-4">
+            <h1 class="my-5">Lista de Usuários Cadastrado</h1>
+            <nav aria-label="Navegação de página exemplo" class="d-flex flex-row-reverse">
+                <ul class="pagination ">
+                  <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+                </ul>
+              </nav>
+            <table class="table table-striped shadow w-100">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Data de Criação</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTableUsers" class="table-group-divider">
+                </tbody>
+
+            </table>
+        </div>
         
     </div>
 
     <script>
+        async function getUsers(){
+            try{
+                const response = await axios.get('http://localhost:3000/user')
+                const users = response.data
+                const tableUsers = document.getElementById('bodyTableUsers')
+                tableUsers.innerHTML = ''
 
-        const spanNomeUsuario = document.getElementById("nome-usuario");
-
-        spanNomeUsuario.textContent = nomeUsuario;
+                users.forEach(user => {
+                    const row = document.createElement('tr')
+                    row.innerHTML = `
+                        <td>${user.nome}</td>
+                        <td>${user.email}</td>
+                        <td>${new Date(user.createdAt).toLocaleDateString('pt-BR')}</td>
+                    `
+                    tableUsers.appendChild(row)
+                });
+            } catch(error){
+                console.error('Erro ao tentar acessar a lista de usuários', error)
+            }
+        }
     </script>
 
-<script>
+    <script>
     const dadosArmazenados = JSON.parse(sessionStorage.getItem('dadosUsuarioLogado'));
     document.getElementById('nomeUsuarioLogado').textContent = `${dadosArmazenados.nome}`;
+    </script>
+
+  <script>
+    window.onload = getUsers;
   </script>
 
 </body>

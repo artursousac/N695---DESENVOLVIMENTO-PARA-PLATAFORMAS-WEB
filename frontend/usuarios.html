@@ -79,6 +79,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Data de Criação</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody id="bodyTableUsers" class="table-group-divider">
@@ -103,6 +104,7 @@
                         <td>${user.nome}</td>
                         <td>${user.email}</td>
                         <td>${new Date(user.createdAt).toLocaleDateString('pt-BR')}</td>
+                        <td>"Teste"</td>
                     `
                     tableUsers.appendChild(row)
                 });

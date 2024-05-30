@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -10,49 +10,102 @@
     <title>Login</title>
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<body class="d-flex text-center align-items-center py-4 bg-body-tertiary">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <main class="w-100 m-auto form-container">
 
-        <form id="formLogin">
-            <img src="https://ead.unifor.br/ava/login/page/img/icon-unifor.svg" class="mb-4" height="55" width="70">
-            <h3 class="mb-3 fw-normal">Please sign in</h3>
-            <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com"
-                    required onclick="esconderDiv('divAlertaLogin')" />
-                <label for="floatingInputEmail">Email Address</label>
-                <div class="invalid-feedback">
-                    Digite seu e-mail corretamente
+            <form id="formLogin" style="display:block">
+                <img src="https://ead.unifor.br/ava/login/page/img/icon-unifor.svg" class="mb-4" height="55" width="70">
+                <h3 class="mb-3 fw-normal">Please sign in</h3>
+                <div class="form-floating mb-2">
+                    <input type="email" class="form-control" id="floatingInputEmail" placeholder="your-email@gmail.com"
+                        required onclick="esconderDiv('divAlertaLogin')" />
+                    <label for="floatingInputEmail">Email Address</label>
+                    <div class="invalid-feedback">
+                        Digite seu e-mail corretamente
+                    </div>
                 </div>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required
-                    onclick="esconderDiv('divAlertaLogin')" />
-                <label for="floatingInputSenha">Password</label>
-                <div class="invalid-feedback">
-                    Digite sua senha
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingInputSenha" placeholder="password" required
+                        onclick="esconderDiv('divAlertaLogin')" />
+                    <label for="floatingInputSenha">Password</label>
+                    <div class="invalid-feedback">
+                        Digite sua senha
+                    </div>
                 </div>
-            </div>
-            <div class="form-check my-3">
-                <input type="checkbox" class="form-check-input" id="flexCheckDefault" readonly />
-                <label class="form-check-label" for="flexCheckDefault">Remember me</label>
-            </div>
-            <button class="btn btn-primary w-100 py-2" type="submit" onclick="Logar()">Sign in</button>
+                <div class="form-check my-3">
+                    <input type="checkbox" class="form-check-input" id="flexCheckDefault" readonly />
+                    <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+                    <a class="mx-3 text-p" style="text-decoration: none;" href="#"
+                        onclick="esconderDiv('divAlertaLogin')">Esqueceu sua senha?</a>
+                </div>
+                <button class="btn btn-primary w-100 py-2 mb-2" type="submit" onclick="Logar()">Sign in</button>
 
-            <div id="divAlertaLogin" class="alert alert-danger align-items-center my-3" role="alert"
-                style="display:none">
-                Email ou senha incorretos
-            </div>
-        </form>
+                <div id="divAlertaLogin" class="alert alert-danger align-items-center mt-3" role="alert"
+                    style="display:none">
+                    Email ou senha incorretos
+                </div>
+
+                <div class="">
+                    <a style="text-decoration: none;" href="#"
+                        onclick="esconderDiv('formLogin'), mudarEstadoDiv('divCadastroUsuario'), setDatasetTheme()">Não possui uma conta?
+                        Registre-se</a>
+                </div>
+            </form>
+
+        <div id="divCadastroUsuario"
+            class="row row-cols w-auto align-items-center text-center text-bg-light rounded-3 shadow justify-content-center"
+            style="display:none">
+            <h3 class="pt-4">Cadastro de Usuário</h3>
+            <form id="formCadastro" class="mx-auto form-cadastro-container">
+                <div class="form-group mt-1">
+                    <label for="formGroupExampleInput">Nome</label>
+                    <input type="text" class="form-control shadow text-bg-light border-0" id="cadastroNome"
+                        placeholder="" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Email</label>
+                    <input type="text" class="form-control shadow text-bg-light border-0" id="cadastroEmail"
+                        placeholder="" required
+                        onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Senha</label>
+                    <input type="text" class="form-control shadow text-bg-light border-0" id="cadastroSenha"
+                        placeholder="" required
+                        onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="formGroupExampleInput2">Confirmação de Senha</label>
+                    <input type="text" class="form-control shadow text-bg-light border-0" id="cadastroConfirmacaoSenha"
+                        placeholder=""
+                        onclick="esconderDiv('divAlertaEmailExistente'), esconderDiv('divAlertaSenhasIguais'), esconderDiv('divAlertaError')">
+                </div>
+                <button class="btn btn-secondary py-2 my-4 mx-3" type="button" onclick="esconderDiv('divCadastroUsuario'), mudarEstadoDiv('formLogin'), setDatasetTheme()">Voltar</button>
+                <button class="btn btn-primary py-2 my-4 mx-3" type="submit" onclick="Cadastrar()">Cadastrar</button>
+                <div id="divAlertaSenhasIguais" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    As senhas não são iguais!!!
+                </div>
+                <div id="divAlertaEmailExistente" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    Este e-mail já existe!!!
+                </div>
+                <div id="divAlertaError" class="alert alert-danger align-items-center my-0" role="alert"
+                    style="display:none">
+                    Erro na criação do usuário. Tente novamente!!!
+                </div>
+            </form>
+        </div>
 
     </main>
 
 
-    <div class="form-check form-switch position-absolute bottom-0 end-0 mb-2">
+    <!-- <div class="form-check form-switch position-absolute bottom-0 end-0 mb-2">
         <input class="form-check-input p-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked
             onclick="setDatasetTheme()">
-    </div>
+    </div>-->
 
     <script>
 
@@ -73,7 +126,7 @@
     <script>
         function setDatasetTheme() {
             var element = document.body;
-            element.dataset.bsTheme = element.dataset.bsTheme == "light" ? "dark" : "light"
+            element.dataset.bsTheme = element.dataset.bsTheme == "dark" ? "light" : "dark"
         }
     </script>
 
@@ -122,6 +175,33 @@
                 }, false)
             })
         })()
+    </script>
+
+    <script>
+        async function Cadastrar() {
+
+            try {
+                let nome = document.getElementById('cadastroNome').value;
+                let email = document.getElementById('cadastroEmail').value;
+                let senha = document.getElementById('cadastroSenha').value;
+                let confirmacaoSenha = document.getElementById('cadastroConfirmacaoSenha').value;
+
+                const response = await axios.post('http://localhost:3000/auth/register', { nome, email, senha, confirmacaoSenha });
+
+                if (response.data.message == "Usuário criado com sucesso") {
+                    esconderDiv('divCadastroUsuario'), mudarEstadoDiv('formLogin'), setDatasetTheme()
+                }
+            } catch (error) {
+                console.error(error.response.data);
+                if (error.response.data.message == "Este e-mail já foi cadastrado") {
+                    mudarEstadoDiv('divAlertaEmailExistente')
+                } else if (error.response.data.message == "As senhas não são iguais") {
+                    mudarEstadoDiv('divAlertaSenhasIguais')
+                } else {
+                    mudarEstadoDiv('divAlertaError')
+                }
+            }
+        }
     </script>
 
 </body>

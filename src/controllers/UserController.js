@@ -27,6 +27,20 @@ async function getUserbyID(request, response){
     response.status(200).json({getUserbyID})
 }
 
+async function getUserbyIDs(request, response){
+    const inicio = (parseInt(request.query.inicio)) || 0
+    const fim = parseInt(request.query.fim) || 10
+    const intervalo = fim - inicio
+
+    const users = (await User.find()).splice(inicio, fim+1)
+
+    if(!users){
+        return response.status(500).json({message: "Erro interno. Tente novamente"})
+    }
+
+    response.status(200).json({users})
+}
+
 async function getUserbyEmail(request, response){
     const { email } = request.body
     const getUserbyEmail = await User.findOne({email: email})
@@ -130,4 +144,4 @@ async function updateUser(request, response){
     }
 }
 
-export { publicRoute, getUsers, createUser, deleteUser, updateUser, getUserbyID, getUserbyEmail, loginUser }
+export { publicRoute, getUsers, createUser, deleteUser, updateUser, getUserbyID, getUserbyIDs, getUserbyEmail, loginUser }

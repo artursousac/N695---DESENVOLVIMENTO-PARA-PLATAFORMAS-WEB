@@ -136,6 +136,7 @@
                 const response = await axios.post('http://localhost:3000/auth/register', { nome, email, senha, confirmacaoSenha });
 
                 if (response.data.message == "Usuário criado com sucesso") {
+                    alert("Usuário cadastrado com sucesso!!!")
                     window.location.replace('telaInicial.html');
                 }
             } catch (error) {

@@ -11,7 +11,7 @@
     <title>Usuários</title>
 </head>
 
-<body class="bg-body-secondary" style="height: 100%; overflow: hidden;">
+<body class="bg-body-secondary" style="height: 100%; overflow:hidden;">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <div class="d-flex flex-row">
@@ -62,7 +62,7 @@
               <span id="nomeUsuarioLogado" class="mx-auto"></span>
         </div>
 
-        <div class="text-center text-bg-light espacamento rounded-3 shadow espacamentoBottom justify-content-center table-responsive w-100 p-4">
+        <div id="table" class="text-center text-bg-light espacamento rounded-3 shadow justify-content-center w-100 p-4" style="overflow: auto; height: 90vh;">
             <h1 class="my-5">Lista de Usuários Cadastrado</h1>
             <nav aria-label="Navegação de página exemplo" class="d-flex flex-row-reverse">
                 <ul class="pagination ">
@@ -104,7 +104,10 @@
                         <td>${user.nome}</td>
                         <td>${user.email}</td>
                         <td>${new Date(user.createdAt).toLocaleDateString('pt-BR')}</td>
-                        <td>"Teste"</td>
+                        <td>
+                        <a type='button' href='#' class='btn btn-primary btn-sm' onclick="editarUser('${user.email}')">Editar</a>
+                        <a type='button' href='#' class='btn btn-danger btn-sm' onclick="deletarUser('${user.email}')">Excluir</a>
+                        </td>
                     `
                     tableUsers.appendChild(row)
                 });
@@ -121,6 +124,24 @@
 
   <script>
     window.onload = getUsers;
+  </script>
+
+  <script>
+    async function deletarUser(email){
+        try {
+
+                const response = await axios.post('http://localhost:3000/user/email', { email });
+                const response2 = await axios.delete(`http://localhost:3000/user/${response.data.id}`)
+
+                if (response.data) {
+                    alert("Usuário deletado com sucesso!!!")
+                    window.location.replace('usuarios.html');
+                }
+            } catch (error) {
+                console.error(error.response.data);
+                alert("Erro. Tente novamente mais tarde")
+            }
+    }
   </script>
 
 </body>

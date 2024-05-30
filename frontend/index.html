@@ -189,6 +189,7 @@
                 const response = await axios.post('http://localhost:3000/auth/register', { nome, email, senha, confirmacaoSenha });
 
                 if (response.data.message == "Usuário criado com sucesso") {
+                    alert("Usuário cadastrado com sucesso!!!")
                     esconderDiv('divCadastroUsuario'), mudarEstadoDiv('formLogin'), setDatasetTheme()
                 }
             } catch (error) {

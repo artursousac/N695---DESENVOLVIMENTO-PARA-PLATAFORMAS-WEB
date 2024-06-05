@@ -4,4 +4,4 @@ Este projeto terá como finalidade a resolução proposta pela atividade final d
 
 O projeto contará com tela de login, tela inicial, tela para cadastro de usuários e tela para gestão administrativa realizar o controle dos usuários. Será utilizado MongoDB como banco de dados e o projeto será feito por meio de HTML, CSS, com Bootstrap e NodeJS.
 
-Para inicializar a aplicação, basta no terminal, dentro da pasta N695---DESENVOLVIMENTO-PARA-PLATAFORMAS-WEB, escrever o comando -npm run dev
+Para inicializar a aplicação, basta no terminal, dentro da pasta N695---DESENVOLVIMENTO-PARA-PLATAFORMAS-WEB, escrever o comando npm run dev

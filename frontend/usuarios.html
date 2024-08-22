@@ -68,7 +68,7 @@
         </div>
 
         <div id="table" class="text-center text-bg-light espacamento rounded-3 shadow justify-content-center w-100 p-4"
-            style="overflow: auto; height: 90vh;">
+            style="overflow: auto; height: 90vh; display: block;">
             <h1 class="my-5">Lista de Usuários Cadastrado</h1>
             <nav aria-label="Navegação de página exemplo" class="d-flex flex-row-reverse">
                 <ul id="paginacao" class="pagination">
@@ -89,6 +89,44 @@
             </table>
         </div>
 
+        <div id="editarUsuario"
+            class="text-center text-bg-light espacamento rounded-3 shadow justify-content-center w-100 p-4"
+            style="height: 90vh; display: none;">
+            <button type="button" class="btn btn-primary d-flex" onclick="esconderDiv('editarUsuario')
+            mudarEstadoDiv('table')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8">
+                    </path>
+                </svg>
+            </button>
+            <h1 class="my-3">Editar Usuário</h1>
+            <div class="d-flex text-center align-items-center py-4">
+                <form class="mx-auto w-50">
+                    <div class="form-group align-items-center mb-2">
+                        <label for="nome" class="m-1">Nome: </label>
+                        <input type="text" class="form-control text-center" id="nomeInputEditar" placeholder="">
+                    </div>
+                    <div class="form-group align-items-center mb-2">
+                        <label for="email" class="m-1">Email:</label>
+                        <input type="email" class="form-control text-center" id="emailInputEditar" placeholder="">
+                    </div>
+                    <div class="form-group align-items-center mb-2 text-nowrap">
+                        <label for="dataCriacao" class="m-1">Data de Criação: </label>
+                        <input type="text" class="form-control border-0 text-center" id="dataCriacao" placeholder="" readonly>
+                    </div>
+                    <div class="form-group align-items-center mb-3 text-nowrap">
+                        <label for="dataModificacao" class="m-1">Data de Modificação: </label>
+                        <input type="text" class="form-control border-0 text-center " id="dataModificacao" placeholder="" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="confirmarEdicao()">Editar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
     </div>
 
     <script>
@@ -101,7 +139,7 @@
                 let contador = 0
                 const divPaginacao = document.getElementById('paginacao')
                 divPaginacao.innerHTML = ''
-                for (let index = 0; contador < quantidadePagina; index+= 7) {
+                for (let index = 0; contador < quantidadePagina; index += 7) {
                     contador = contador + 1
                     let inicio = index
                     let fim = inicio + 6
@@ -156,7 +194,7 @@
     </script>
 
     <script>
-        window.onload = getUsersPaginado(0,6)
+        window.onload = getUsersPaginado(0, 6)
     </script>
 
     <script>
@@ -180,6 +218,72 @@
                 console.error(error.response.data);
                 alert("Erro. Tente novamente!!!")
             }
+        }
+    </script>
+
+    <script>
+        async function editarUser(email) {
+            try {
+
+                const response = await axios.post('http://localhost:3000/user/email', { email });
+                const response2 = await axios.get(`http://localhost:3000/user/${response.data.id}`)
+
+                if (response2.data.getUserbyID) {
+
+                    esconderDiv('table')
+                    mudarEstadoDiv('editarUsuario')
+
+                    document.getElementById('nomeInputEditar').value = response2.data.getUserbyID.nome
+                    document.getElementById('emailInputEditar').value = response2.data.getUserbyID.email
+                    document.getElementById('dataCriacao').value = new Date(response2.data.getUserbyID.createdAt).toLocaleDateString('pt-BR')
+                    document.getElementById('dataModificacao').value = new Date(response2.data.getUserbyID.modifiedAt).toLocaleDateString('pt-BR')
+
+
+                }
+            } catch (error) {
+                console.error(error.response.data);
+                alert("Erro. Tente novamente!!!")
+            }
+        }
+    </script>
+
+<script>
+    async function confirmarEdicao() {
+        try {
+
+            let nome = document.getElementById('nomeInputEditar').value
+            let email = document.getElementById('emailInputEditar').value
+
+            const response = await axios.post('http://localhost:3000/user/email', { email });
+            const response2 = await axios.put(`http://localhost:3000/user/${response.data.id}`, {nome: `${nome}`, email: `${email}`, modifiedAt: `${Date.now()}`})
+
+            if (response2.data.message = "Usuário Atualizado") {
+
+                getUsersPaginado(0, 6)
+                alert("Usuário atualizado com sucesso!!!")
+                esconderDiv('editarUsuario')
+                mudarEstadoDiv('table')
+
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Erro. Tente novamente!!!")
+        }
+    }
+</script>
+
+    <script>
+
+        function mudarEstadoDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'none')
+                document.getElementById(el).style.display = 'block';
+        }
+
+        function esconderDiv(el) {
+            var display = document.getElementById(el).style.display;
+            if (display == 'block')
+                document.getElementById(el).style.display = 'none';
         }
     </script>
 

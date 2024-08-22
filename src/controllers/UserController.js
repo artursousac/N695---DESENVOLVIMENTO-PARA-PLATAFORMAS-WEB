@@ -137,7 +137,7 @@ async function updateUser(request, response){
     try{
     await User.findByIdAndUpdate({_id: request.params.id}, request.body)
 
-    return response.status(200).json({response: "Usuário Atualizado"})
+    return response.status(200).json({message: "Usuário Atualizado"})
     }
     catch(error){
     return response.status(400).json({response: error.message})   
